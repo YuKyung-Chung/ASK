@@ -26,4 +26,7 @@ public class Place {
     private double latitude;
     private double longitude;
 
+    public void changePlaceAddress(String address) {
+        this.placeAddress = address;
+    }
 }
