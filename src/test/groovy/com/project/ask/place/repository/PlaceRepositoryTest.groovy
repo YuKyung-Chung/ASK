@@ -1,12 +1,13 @@
 package com.project.ask.place.repository
 
+import com.project.ask.AbstractIntegrationContainerBaseTest
 import com.project.ask.place.entity.Place
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import spock.lang.Specification
 
 @SpringBootTest
-class PlaceRepositoryTest extends Specification {
+class PlaceRepositoryTest extends AbstractIntegrationContainerBaseTest {
 
     @Autowired
     private PlaceRepository placeRepository
