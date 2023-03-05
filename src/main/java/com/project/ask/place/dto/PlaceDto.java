@@ -1,6 +1,6 @@
-package com.project.ask.api.dto;
+package com.project.ask.place.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -10,14 +10,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class DocumentDto {
-
-    @JsonProperty("address_name")
-    private String addressName;
-
-    @JsonProperty("y")
+public class PlaceDto {
+    private Long id;
+    private String placeName;
+    private String placeAddress;
     private double latitude;
-
-    @JsonProperty("x")
     private double longitude;
 }
