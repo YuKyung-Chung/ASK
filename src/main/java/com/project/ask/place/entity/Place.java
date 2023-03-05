@@ -1,5 +1,6 @@
 package com.project.ask.place.entity;
 
+import com.project.ask.Auditable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,7 +16,7 @@ import javax.persistence.Id;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Place {
+public class Place extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

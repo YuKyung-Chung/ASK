@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import spock.lang.Specification
 
+import java.time.LocalDateTime
+
 @SpringBootTest
 class PlaceRepositoryTest extends AbstractIntegrationContainerBaseTest {
 
@@ -60,6 +62,26 @@ class PlaceRepositoryTest extends AbstractIntegrationContainerBaseTest {
 
         then:
         result.size() == 1
+    }
+
+    def "Auditable 등록"() {
+        given:
+        LocalDateTime now = LocalDateTime.now()
+        String address = "강원도 동해시 삼화로 584"
+        String name = "무릉계곡"
+
+        def place = Place.builder()
+                .placeAddress(address)
+                .placeName(name)
+                .build()
+
+        when:
+        placeRepository.save(place)
+        def result = placeRepository.findAll()
+
+        then:
+        result.get(0).getCreatedDate().isAfter(now)
+        result.get(0).getModifiedDate().isAfter(now)
     }
 }
 
