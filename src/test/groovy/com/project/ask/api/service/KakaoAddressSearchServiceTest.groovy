@@ -1,6 +1,7 @@
 package com.project.ask.api.service
 
 import com.project.ask.AbstractIntegrationContainerBaseTest
+import com.project.ask.api.dto.KakaoApiResponseDto
 import org.springframework.beans.factory.annotation.Autowired
 import spock.lang.Specification
 
@@ -31,5 +32,23 @@ class KakaoAddressSearchServiceTest extends AbstractIntegrationContainerBaseTest
         result.documentList.size() > 0
         result.metaDto.totalCount > 0
         result.documentList.get(0).addressName != null
+    }
+
+    def "정상적인 주소를 입력했을 경우, 정상적으로 위도 경도로 변환됨"() {
+        given:
+        boolean actualResult = false
+
+        when:
+        def searchResult = kakaoAddressSearchService.requestAddressSearch(inputAddress)
+
+        then:
+        if (searchResult == null) actualResult = false
+        else actualResult = searchResult.getDocumentList().size() > 0
+
+        where:
+        inputAddress         | expectedResult
+        "서울 성북구 중앙동 91" | true
+        "잘못된 주소"          | false
+
     }
 }
