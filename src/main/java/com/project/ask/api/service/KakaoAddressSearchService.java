@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.retry.annotation.Backoff;
+import org.springframework.retry.annotation.Recover;
+import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.client.RestTemplate;
@@ -26,10 +29,15 @@ public class KakaoAddressSearchService {
     private String kakaoRestApiKey;
 
 
+    @Retryable(
+            value = {RuntimeException.class},
+            maxAttempts = 2, //default는 3
+            backoff = @Backoff(delay = 2000) //default는 1000ms
+    )
     public KakaoApiResponseDto requestAddressSearch(String address) {
 
         //주소값이 null로 들어올 때 예외처리
-        if(ObjectUtils.isEmpty(address)) return null;
+        if (ObjectUtils.isEmpty(address)) return null;
 
         URI uri = kakaoUriBuilderService.buildUriByAddressSearch(address);
 
@@ -41,4 +49,9 @@ public class KakaoAddressSearchService {
         return restTemplate.exchange(uri, HttpMethod.GET, httpEntity, KakaoApiResponseDto.class).getBody();
     }
 
+    @Recover
+    public KakaoApiResponseDto recover(RuntimeException e, String address) {
+        log.error("All the retries failed. address: {}, error: {}", address, e.getMessage());
+        return null;
+    }
 }
