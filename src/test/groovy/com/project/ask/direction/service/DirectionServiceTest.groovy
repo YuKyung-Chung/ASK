@@ -18,7 +18,7 @@ class DirectionServiceTest extends Specification {
         placeList.addAll(
                 PlaceDto.builder()
                         .id(1L)
-                .placeName("진남관")
+                        .placeName("진남관")
                         .placeAddress("주소1")
                         .latitude(34.7413383)
                         .longitude(127.7365704)

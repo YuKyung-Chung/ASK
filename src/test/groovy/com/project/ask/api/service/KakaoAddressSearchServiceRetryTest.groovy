@@ -1,4 +1,5 @@
 import com.project.ask.AbstractIntegrationContainerBaseTest
+import com.project.ask.api.dto.DocumentDto
 import com.project.ask.api.dto.KakaoApiResponseDto
 import com.project.ask.api.dto.MetaDto
 import com.project.ask.api.service.KakaoAddressSearchService
@@ -12,7 +13,6 @@ import org.spockframework.spring.SpringBean
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
-
 
 class KakaoAddressSearchServiceRetryTest extends AbstractIntegrationContainerBaseTest {
 
