@@ -6,22 +6,49 @@
 
     <!--부트스트랩 css 추가-->
     <link rel="stylesheet" href="/css/lib/bootstrap.min.css">
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" type="text/css" />
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
 </head>
 <body>
 <div>
+    <!-- Navigation-->
+    <nav class="navbar navbar-light bg-light static-top">
+        <div class="container">
+            <a class="navbar-brand" href="#!">ASK</a>
+            <a class="btn btn-primary" href="#signup">Sign Up</a>
+        </div>
+    </nav>
+    <!-- Masthead-->
+    <header class="masthead">
+        <div class="container position-relative">
+            <img src="assets/img/pic01.jpg" class="img-fluid img-thumbnail">
+            <div class="row justify-content-center">
+                <div class="col-xl-6">
+                    <div class="text-center text-white">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
     <div class="container">
         <div>
             <h2>Tourist Attraction Recommendation</h2>
         </div>
         <div class="body">
             <form action="/search" method="post">
-                <div>
-                    <label for="address">주소를 입력하시면 주소 기준으로 가까운 관광명소의 위치 최대 3곳 추천드립니다.</label>
-                    <input type="text" class="form-control" id="address_kakao" name="address"
-                           placeholder="주소(지번 또는 도로명)를 입력하세요. ex) 서울특별시 성북구 종암로 10길" readonly>
-                </div>
-                <div>
-                    <button type="submit" class="btn btn-primary" id="btn-save">Search</button>
+                <!-- address input-->
+                <div class="row">
+                    <label class="large-label" for="address">주소를 입력하시면 주소 기준으로 가까운 관광명소의 위치 최대 3곳 추천드립니다.</label>
+                    <div class="col">
+                        <input class="form-control form-control-lg" id="address_kakao" type="text" name="address"
+                               placeholder="주소(지번 또는 도로명)를 입력하세요. ex) 서울특별시 성북구 종암로 10길" readonly/>
+                    </div>
+                    <div class="col-auto"><button class="btn btn-primary btn-lg" id="btn-save" type="submit">Search</button></div>
                 </div>
             </form>
         </div>
