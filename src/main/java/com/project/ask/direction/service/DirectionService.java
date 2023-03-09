@@ -26,12 +26,18 @@ public class DirectionService {
     private final PlaceSearchService placeSearchService;
     private final DirectionRepository directionRepository;
     private final KakaoCategorySearchService kakaoCategorySearchService;
+    private final Base62Service base62Service;
 
     @Transactional //데이터 변경이 있으므로 트랜잭션 처리
     public List<Direction> saveAll(List<Direction> directionList) {
         // validation check
         if(CollectionUtils.isEmpty(directionList)) return Collections.emptyList();
         return directionRepository.saveAll(directionList);
+    }
+
+    public Direction findById(String encodedId) {
+        Long decodedId = base62Service.decodeDirectionId(encodedId);
+        return directionRepository.findById(decodedId).orElse(null);
     }
 
     // 공공데이터 기반으로 고객이 입력한 주소와 비교하여 가까운 장소 검색하는 메서드
