@@ -19,14 +19,9 @@ public class DirectionController {
 
     @GetMapping("/dir/{encodedId}")
     public String searchDirection(@PathVariable("encodedId") String encodedId) {
-        Direction resultDirection = directionService.findById(encodedId);
+        String result = directionService.findDirectionUrlById(encodedId);
 
-        String params = String.join(",", resultDirection.getTargetPlaceName(),
-                String.valueOf(resultDirection.getTargetLatitude()), String.valueOf(resultDirection.getTargetLongitude()));
-
-        String result = UriComponentsBuilder.fromHttpUrl(DIRECTION_BASE_URL + params)
-                .toUriString();
-        log.info("direction params: {}, url: {}" ,params ,result);
+        log.info("[DirectionController searchDirection] direction url: {}" ,result);
 
         return "redirect:"+result;
     }
