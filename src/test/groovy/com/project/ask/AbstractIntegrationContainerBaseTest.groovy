@@ -4,7 +4,7 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.testcontainers.containers.GenericContainer
 import spock.lang.Specification
 
-@SpringBootTest //스프링 컨테이너 같이 띄워서 여러 모듈간 연동까지 검증할 수 있음
+@SpringBootTest(classes = AskApplication.class) //스프링 컨테이너 같이 띄워서 여러 모듈간 연동까지 검증할 수 있음
 abstract class AbstractIntegrationContainerBaseTest extends Specification {
     static final GenericContainer MY_REDIS_CONTAINER
 

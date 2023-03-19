@@ -4,6 +4,7 @@ import com.project.ask.place.entity.Place;
 import com.project.ask.place.repository.PlaceRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 import org.springframework.util.CollectionUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +18,27 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class PlaceRepositoryService {
     private final PlaceRepository placeRepository;
+
+    // self invocation test
+    public void bar(List<Place> placeList) {
+        log.info("bar CurrentTransactionName: "+ TransactionSynchronizationManager.getCurrentTransactionName());
+        foo(placeList);
+    }
+    // self invocation test
+    @Transactional
+    public void foo(List<Place> placeList) {
+        log.info("foo CurrentTransactionName: "+ TransactionSynchronizationManager.getCurrentTransactionName());
+        placeList.forEach(place -> {
+            placeRepository.save(place);
+            throw new RuntimeException("error"); // 예외 발생
+        });
+    }
+    // read only test
+    @Transactional(readOnly = true)
+    public void startReadOnlyMethod(Long id) {
+        placeRepository.findById(id).ifPresent(place ->
+                place.changePlaceAddress("서울 특별시 광진구"));
+    }
 
     @Transactional
     public void updateAddress(Long id, String address) {

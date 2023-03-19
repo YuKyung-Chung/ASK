@@ -23,7 +23,7 @@ public class KakaoCategorySearchService {
     private final RestTemplate restTemplate;
     private static final String CATEGORY = "AT4"; // 관광명소 카테고리
 
-    @Value("${KAKAO_REST_API_KEY}")
+    @Value("${kakao.rest.api.key}")
     private String kakaoRestApiKey;
 
     public KakaoApiResponseDto requestPlaceCategorySearch(double latitude, double longitude, double radius) {
