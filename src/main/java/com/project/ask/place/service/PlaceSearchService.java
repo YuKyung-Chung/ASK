@@ -1,5 +1,6 @@
 package com.project.ask.place.service;
 
+import com.project.ask.place.cache.PlaceRedisTemplateService;
 import com.project.ask.place.dto.PlaceDto;
 import com.project.ask.place.entity.Place;
 import lombok.RequiredArgsConstructor;
@@ -15,12 +16,17 @@ import java.util.stream.Collectors;
 public class PlaceSearchService {
 
     private final PlaceRepositoryService placeRepositoryService;
+    private final PlaceRedisTemplateService placeRedisTemplateService;
 
     public List<PlaceDto> searchPlaceDtoList() {
 
         //redis
+        List<PlaceDto> placeDtoList = placeRedisTemplateService.findAll();
+        //EmptyList가 아닐경우에는 redis 사용
+        if(!placeDtoList.isEmpty())
+            return placeDtoList;
 
-        //db
+        //EmptyList일 경우 db 사용
         return placeRepositoryService.findAll()
                 .stream()
                 .map(entity -> convertToPlaceDto(entity))
