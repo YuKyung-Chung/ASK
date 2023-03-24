@@ -26,7 +26,7 @@ public class PlaceSearchService {
         if(!placeDtoList.isEmpty())
             return placeDtoList;
 
-        //EmptyList일 경우 db 사용
+        //redis가 장애상태이거나 EmptyList일 경우 db 사용
         return placeRepositoryService.findAll()
                 .stream()
                 .map(entity -> convertToPlaceDto(entity))
